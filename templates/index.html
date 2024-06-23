@@ -7,36 +7,37 @@
     <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
-    <h1>Upload an Image of a Car</h1>
-    <form action="/" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" required>
-        <input type="submit" value="Upload">
-    </form>
-    {% if license_plate_text %}
-        <h2>Detected License Plate Number: {{ license_plate_text }}</h2>
-        <!-- <img src="{{ file_path }}" alt="Uploaded Image" style="max-width: 100%;"> -->
-        {% if plate_exists %}
-            <p style="color: green;">Number plate exists in the database.</p>
-            <div class="stopwatch">
-                <div class="display" id="display">00:00:00</div>
-                <div class="buttons">
-                    <button id="startStopBtn">Start</button>
-                    <button id="resetBtn">Reset</button>
+    <div class="container">
+        <h1>Upload an Image of a Car</h1>
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <input type="submit" value="Upload">
+        </form>
+        {% if license_plate_text %}
+            <h2>Detected License Plate Number: {{ license_plate_text }}</h2>
+            <img src="{{ file_path }}" alt="Uploaded Image" class="uploaded-image">
+            {% if plate_exists %}
+                <p class="success-message">Number plate exists in the database.</p>
+                <div class="stopwatch">
+                    <div class="display" id="display">00:00:00</div>
+                    <div class="buttons">
+                        <button id="stopBtn">Stop</button>
+                    </div>
+                    <div class="total-time">
+                        Total time: <span id="totalTime">0</span> seconds
+                    </div>
+                    <div class="price" id="priceDisplay"></div>
+                    <button id="continueBtn" style="display:none;">Continue</button>
                 </div>
-                <div class="total-time">
-                    Total time: <span id="totalTime">0</span> seconds
-                </div>
-                <div class="price" id="priceDisplay"></div>
-            </div>
-            <script src="static/script.js"></script>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    startStop(); // Automatically start the timer
-                });
-            </script>
-        {% else %}
-            <p style="color: red;">Number plate does not exist in the database.</p>
+                <script src="static/script.js"></script>
+            {% else %}
+                <p class="error-message">Number plate does not exist in the database.</p>
+            {% endif %}
         {% endif %}
-    {% endif %}
+        <div id="thankYouMessage" style="display:none;">
+            <h2>Thank you for choosing our service</h2>
+            <p>The amount of <span id="deductedAmount"></span> Rs has been deducted from your wallet successfully.</p>
+        </div>
+    </div>
 </body>
 </html>

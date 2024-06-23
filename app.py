@@ -96,6 +96,8 @@ from flask import Flask, render_template, request
 from pymongo import MongoClient
 import re
 
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
 app = Flask(__name__)
 
 # MongoDB connection
